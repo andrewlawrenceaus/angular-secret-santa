@@ -9,7 +9,7 @@ import { CurrentPlayersService } from './current-players.service';
 })
 export class CurrentPlayersComponent implements OnInit {
 
-  players: string[] = [];
+  players: Map<string, string[]> = new Map<string, string[]>();
   subscription: Subscription = new Subscription;
 
   constructor(private currentPlayersService: CurrentPlayersService) { }
@@ -17,12 +17,11 @@ export class CurrentPlayersComponent implements OnInit {
   ngOnInit(): void {
     this.subscription = this.currentPlayersService.playersChanged
       .subscribe(
-        (players: string[]) => {
+        (players: Map<string, string[]>) => {
           this.players = players;
         }
       )
     this.players = this.currentPlayersService.getPlayers();
-    console.log(this.players)
   }
 
   ngOnDestroy() {

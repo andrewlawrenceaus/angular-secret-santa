@@ -4,6 +4,7 @@ import { CreateGameRoutingModule } from "./create-game-routing-module";
 import { CreateGameComponent } from "./create-game.component";
 import { AddPlayerComponent } from './add-player/add-player.component';
 import { SharedModule } from "../shared/shared.module";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -13,6 +14,7 @@ import { SharedModule } from "../shared/shared.module";
     imports: [
         RouterModule,
         CreateGameRoutingModule,
+        ReactiveFormsModule,
         SharedModule
     ]
 })

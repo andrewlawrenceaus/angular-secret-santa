@@ -1,8 +1,7 @@
 <div class="row">
     <div class="col-xs-12">
-        <app-player-item 
-        *ngFor="let player of players" 
-        [player]="player">
-        </app-player-item>
+        <app-family-group-item *ngFor="let player of players | keyvalue" [familyGroup]="player.key"
+            [players]="player.value">
+        </app-family-group-item>
     </div>
 </div>

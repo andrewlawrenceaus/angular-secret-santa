@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-player-item',
@@ -8,10 +8,15 @@ import { Component, Input, OnInit } from '@angular/core';
 export class PlayerItemComponent implements OnInit {
 
   @Input() player: string = '';
+  @Output() deletePlayer = new EventEmitter<string>();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDeletePlayer() {
+    this.deletePlayer.emit(this.player);
   }
 
 }
