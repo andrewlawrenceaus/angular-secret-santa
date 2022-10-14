@@ -1,1 +1,6 @@
-<app-paired-players [pairedPlayers]="gameInformation?.matchedPairs"></app-paired-players>
+<app-paired-players [pairedPlayers]="gameInformation?.matchedPairs">
+</app-paired-players>
+<app-unmatched-players [title]="'Unmatched Givers'" [players]="gameInformation?.unmatchedGivers">
+</app-unmatched-players>
+<app-unmatched-players [title]="'Unmatched Receivers'" [players]="gameInformation?.unmatchedReceivers">
+</app-unmatched-players>
