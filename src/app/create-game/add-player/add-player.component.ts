@@ -23,7 +23,7 @@ export class AddPlayerComponent implements OnInit {
     console.log(this.playerForm.value);
     this.currentPlayersService
       .addPlayer(this.playerForm.value.name, this.playerForm.value.familyGroup)
-    this.playerForm.reset();  
+    this.playerForm.get('name')?.reset();  
   }
 
 }

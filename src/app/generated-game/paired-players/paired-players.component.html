@@ -1,0 +1,22 @@
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Giver Name</th>
+                <th scope="col">Giver Family Group</th>
+                <th scope="col">Receiver Name</th>
+                <th scope="col">Receiver Family Group</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let playerPair of pairedPlayers; let i = index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{playerPair.giver.name}}</td>
+                <td>{{playerPair.giver.familyGroup}}</td>
+                <td>{{playerPair.receiver.name}}</td>
+                <td>{{playerPair.receiver.familyGroup}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

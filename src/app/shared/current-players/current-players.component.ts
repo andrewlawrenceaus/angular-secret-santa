@@ -15,7 +15,7 @@ export class CurrentPlayersComponent implements OnInit {
   constructor(private currentPlayersService: CurrentPlayersService) { }
 
   ngOnInit(): void {
-    this.subscription = this.currentPlayersService.playersChanged
+    this.subscription = this.currentPlayersService.initialPlayersMapChanged
       .subscribe(
         (players: Map<string, string[]>) => {
           this.players = players;
