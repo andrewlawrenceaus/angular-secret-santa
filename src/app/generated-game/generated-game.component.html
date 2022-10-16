@@ -4,3 +4,14 @@
 </app-unmatched-players>
 <app-unmatched-players [title]="'Unmatched Receivers'" [players]="gameInformation?.unmatchedReceivers">
 </app-unmatched-players>
+<hr/>
+<div class="row mb-3">
+    <div>
+        <button class="btn btn-primary" (click)="onModifyPlayers()">Modify Players</button>
+    </div>
+</div>
+<div class="row">
+    <div>
+        <button class="btn btn-danger" (click)="onRegenerateGame()">Regenerate Game</button>
+    </div>
+</div>
