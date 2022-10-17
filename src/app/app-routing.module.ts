@@ -2,7 +2,11 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/create-game', pathMatch: 'full' },
+  { path: '', redirectTo: '/how-to-play', pathMatch: 'full' },
+  {
+    path: 'how-to-play', loadChildren: () => import('./how-to-play/how-to-play.module')
+      .then(m => m.GeneratedGameModule)
+  },
   {
     path: 'create-game', loadChildren: () => import('./create-game/create-game.module')
       .then(m => m.CreateGameModule)
