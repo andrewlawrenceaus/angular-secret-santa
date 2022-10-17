@@ -1,43 +1,21 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
-import { GameInformation } from "../game-information.model";
-import { PlayerPair } from "../player-pair.model";
-import { Player } from "../player.model";
+import { GameInformation } from "./game-information.model";
+import { PlayerPair } from "./player-pair.model";
+import { Player } from "./player.model";
 
 @Injectable({
     providedIn: 'root'
 })
-export class CurrentPlayersService {
+export class GameManagementService {
     initialPlayersMapChanged = new Subject<Map<string, string[]>>();
     private initialPlayersMap: Map<string, string[]> = new Map<string, string[]>();
 
     gameInformationChanged = new Subject<GameInformation>();
     private gameInformation: GameInformation = new GameInformation();
 
-    //Test data for development
-    private player1: Player = new Player('Andrew', 'Lawrence Family')
-    private player2: Player = new Player('Jess', 'Lawrence Family')
-    private player3: Player = new Player('Chris', 'Lawrence Family')
-    private player4: Player = new Player('John', 'O\'Grady Family')
-    private player5: Player = new Player('Bec', 'O\'Grady Family')
-    private player6: Player = new Player('Alex', 'O\'Grady Family')
-    private player7: Player = new Player('Mitchell', 'O\'Grady Family')
-    private player8: Player = new Player('Brian', 'Brian\'s Family')
-    private player9: Player = new Player('Ros', 'Brian\'s Family')
-    private player10: Player = new Player('Charlie', 'Brian\'s Family')
-
-
     constructor() {
-        this.addPlayer(this.player1.name, this.player1.familyGroup);
-        this.addPlayer(this.player2.name, this.player2.familyGroup);
-        this.addPlayer(this.player3.name, this.player3.familyGroup);
-        this.addPlayer(this.player4.name, this.player4.familyGroup);
-        this.addPlayer(this.player5.name, this.player5.familyGroup);
-        this.addPlayer(this.player6.name, this.player6.familyGroup);
-        this.addPlayer(this.player7.name, this.player7.familyGroup);
-        this.addPlayer(this.player8.name, this.player8.familyGroup);
-        this.addPlayer(this.player9.name, this.player9.familyGroup);
-        this.addPlayer(this.player10.name, this.player10.familyGroup);
+        this.initialiseTestData();
     }
 
     addPlayer(name: string, familyGroup: string) {
@@ -140,5 +118,22 @@ export class CurrentPlayersService {
         destinationGame.matchedPairs = [...originGame.matchedPairs];
         destinationGame.unmatchedGivers = [...originGame.unmatchedGivers];
         destinationGame.unmatchedReceivers = [...originGame.unmatchedReceivers];
+    }
+
+    initialiseTestData(){
+        this.addPlayer('Andrew and Jess', 'Lawrence Family');
+        this.addPlayer('Chris and Gretel', 'Lawrence Family');
+        this.addPlayer('April', 'Lawrence Family');
+        this.addPlayer('Kathy', 'Lawrence Family');
+        this.addPlayer('Michael', 'Lawrence Family');
+        this.addPlayer('John', 'John\'s Family');
+        this.addPlayer('Bec', 'John\'s Family');
+        this.addPlayer('Alex', 'John\'s Family');
+        this.addPlayer('Francesca', 'John\'s Family');
+        this.addPlayer('Mitchel', 'John\'s Family');
+        this.addPlayer('Brian', 'Brian\'s Family');
+        this.addPlayer('Ros', 'Brian\'s Family');
+        this.addPlayer('Keiran', 'Brian\'s Family');
+        this.addPlayer('Charlie', 'Brian\'s Family');
     }
 }

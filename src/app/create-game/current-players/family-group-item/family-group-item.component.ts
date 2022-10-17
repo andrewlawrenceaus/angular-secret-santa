@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrentPlayersService } from '../current-players.service';
+import { GameManagementService } from '../../../shared/game-management.service';
 
 @Component({
   selector: 'app-family-group-item',
@@ -11,7 +11,7 @@ export class FamilyGroupItemComponent implements OnInit {
   @Input() players: string[] = [];
   @Input() familyGroup: string = '';
 
-  constructor(private currentPlayersService: CurrentPlayersService) { }
+  constructor(private currentPlayersService: GameManagementService) { }
 
   ngOnInit(): void {
   }

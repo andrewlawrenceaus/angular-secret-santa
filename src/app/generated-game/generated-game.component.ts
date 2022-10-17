@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CurrentPlayersService } from '../shared/current-players/current-players.service';
+import { GameManagementService } from '../shared/game-management.service';
 import { GameInformation } from '../shared/game-information.model';
 
 @Component({
@@ -13,7 +13,7 @@ export class GeneratedGameComponent implements OnInit {
   gameInformation: GameInformation | undefined;
   subscription: Subscription = new Subscription;
 
-  constructor(private router: Router, private currentPlayersService: CurrentPlayersService) { }
+  constructor(private router: Router, private currentPlayersService: GameManagementService) { }
 
   ngOnInit(): void {
     this.currentPlayersService.generateGame();

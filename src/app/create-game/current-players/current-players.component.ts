@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { CurrentPlayersService } from './current-players.service';
+import { GameManagementService } from '../../shared/game-management.service';
 
 @Component({
   selector: 'app-current-players',
@@ -12,7 +12,7 @@ export class CurrentPlayersComponent implements OnInit {
   players: Map<string, string[]> = new Map<string, string[]>();
   subscription: Subscription = new Subscription;
 
-  constructor(private currentPlayersService: CurrentPlayersService) { }
+  constructor(private currentPlayersService: GameManagementService) { }
 
   ngOnInit(): void {
     this.subscription = this.currentPlayersService.initialPlayersMapChanged

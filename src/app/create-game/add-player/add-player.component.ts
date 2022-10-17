@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CurrentPlayersService } from 'src/app/shared/current-players/current-players.service';
+import { GameManagementService } from 'src/app/shared/game-management.service';
 
 @Component({
   selector: 'app-add-player',
@@ -10,7 +10,7 @@ import { CurrentPlayersService } from 'src/app/shared/current-players/current-pl
 export class AddPlayerComponent implements OnInit {
   playerForm: FormGroup = new FormGroup('');
 
-  constructor(private currentPlayersService: CurrentPlayersService) { }
+  constructor(private currentPlayersService: GameManagementService) { }
 
   ngOnInit(): void {
     this.playerForm = new FormGroup({
