@@ -12,16 +12,16 @@ export class CurrentPlayersComponent implements OnInit {
   players: Map<string, string[]> = new Map<string, string[]>();
   subscription: Subscription = new Subscription;
 
-  constructor(private currentPlayersService: GameManagementService) { }
+  constructor(private gameManagementService: GameManagementService) { }
 
   ngOnInit(): void {
-    this.subscription = this.currentPlayersService.initialPlayersMapChanged
+    this.subscription = this.gameManagementService.initialPlayersMapChanged
       .subscribe(
         (players: Map<string, string[]>) => {
           this.players = players;
         }
       )
-    this.players = this.currentPlayersService.getPlayers();
+    this.players = this.gameManagementService.getPlayers();
   }
 
   ngOnDestroy() {

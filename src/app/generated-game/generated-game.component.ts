@@ -13,17 +13,17 @@ export class GeneratedGameComponent implements OnInit {
   gameInformation: GameInformation | undefined;
   subscription: Subscription = new Subscription;
 
-  constructor(private router: Router, private currentPlayersService: GameManagementService) { }
+  constructor(private router: Router, private gameManagementService: GameManagementService) { }
 
   ngOnInit(): void {
-    this.currentPlayersService.generateGame();
-    this.subscription = this.currentPlayersService.gameInformationChanged
+    this.gameManagementService.generateGame();
+    this.subscription = this.gameManagementService.gameInformationChanged
       .subscribe(
         (gameInformation: GameInformation) => {
           this.gameInformation = gameInformation;
         }
       )
-    this.gameInformation = this.currentPlayersService.getGameInformation();
+    this.gameInformation = this.gameManagementService.getGameInformation();
     console.log(this.gameInformation)
   }
 
@@ -32,6 +32,6 @@ export class GeneratedGameComponent implements OnInit {
   }
 
   onRegenerateGame(){
-    this.currentPlayersService.generateGame();
+    this.gameManagementService.generateGame();
   }
 }

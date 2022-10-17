@@ -11,13 +11,13 @@ export class FamilyGroupItemComponent implements OnInit {
   @Input() players: string[] = [];
   @Input() familyGroup: string = '';
 
-  constructor(private currentPlayersService: GameManagementService) { }
+  constructor(private gameManagementService: GameManagementService) { }
 
   ngOnInit(): void {
   }
 
   deletePlayer(playerName: string) {
-    this.currentPlayersService.removePlayer(playerName, this.familyGroup);
+    this.gameManagementService.removePlayer(playerName, this.familyGroup);
   }
 
 }
