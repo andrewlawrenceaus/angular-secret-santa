@@ -12,7 +12,7 @@ export class CurrentPlayersService {
     private initialPlayersMap: Map<string, string[]> = new Map<string, string[]>();
 
     gameInformationChanged = new Subject<GameInformation>();
-    private gameInformation: GameInformation | undefined;
+    private gameInformation: GameInformation = new GameInformation();
 
     //Test data for development
     private player1: Player = new Player('Andrew', 'Lawrence Family')
@@ -21,6 +21,11 @@ export class CurrentPlayersService {
     private player4: Player = new Player('John', 'O\'Grady Family')
     private player5: Player = new Player('Bec', 'O\'Grady Family')
     private player6: Player = new Player('Alex', 'O\'Grady Family')
+    private player7: Player = new Player('Mitchell', 'O\'Grady Family')
+    private player8: Player = new Player('Brian', 'Brian\'s Family')
+    private player9: Player = new Player('Ros', 'Brian\'s Family')
+    private player10: Player = new Player('Charlie', 'Brian\'s Family')
+
 
     constructor() {
         this.addPlayer(this.player1.name, this.player1.familyGroup);
@@ -29,6 +34,10 @@ export class CurrentPlayersService {
         this.addPlayer(this.player4.name, this.player4.familyGroup);
         this.addPlayer(this.player5.name, this.player5.familyGroup);
         this.addPlayer(this.player6.name, this.player6.familyGroup);
+        this.addPlayer(this.player7.name, this.player7.familyGroup);
+        this.addPlayer(this.player8.name, this.player8.familyGroup);
+        this.addPlayer(this.player9.name, this.player9.familyGroup);
+        this.addPlayer(this.player10.name, this.player10.familyGroup);
     }
 
     addPlayer(name: string, familyGroup: string) {
@@ -61,14 +70,75 @@ export class CurrentPlayersService {
     }
 
     generateGame() {
+        this.matchPlayers()
+        this.gameInformationChanged.next(this.gameInformation);
+    }
 
-        let playerPair1 = new PlayerPair(this.player1, this.player4);
-        let playerPair2 = new PlayerPair(this.player4, this.player2);
-        let playerPair3 = new PlayerPair(this.player3, this.player5);
-        
-        this.gameInformation = new GameInformation([playerPair1, playerPair2, playerPair3],
-            [this.player2, this.player5],
-            [this.player1, this.player6])
-        this.gameInformationChanged.next(this.gameInformation);    
+    initialiseGameInformation() {
+        this.gameInformation.matchedPairs = [];
+        var mapDesc = new Map([...this.initialPlayersMap].sort((a, b) =>
+            b[1].length - a[1].length));
+
+        mapDesc.forEach((value, familyKey) => {
+            value.forEach((name) => {
+                this.gameInformation?.unmatchedGivers.push(new Player(name, familyKey))
+            })
+        })
+
+        this.gameInformation.unmatchedReceivers = [...this.gameInformation.unmatchedGivers]
+    }
+
+    matchPlayers() {
+        this.initialiseGameInformation();
+        const givers = [...this.gameInformation.unmatchedGivers]
+        let bestProposedGame = new GameInformation();
+        this.copyGameInformation(this.gameInformation, bestProposedGame);
+
+        let i = 10;
+        while (i > 0 && this.gameInformation.unmatchedGivers.length > 0) {
+            let proposedGame = new GameInformation();
+            this.copyGameInformation(this.gameInformation, proposedGame);
+            givers.forEach((giver) => {
+                let receiver = this.findRandomReceiver(giver, proposedGame.unmatchedReceivers);
+                if (receiver != null) {
+                    proposedGame.matchedPairs.push(new PlayerPair(giver, receiver));
+                    this.removePlayerFromArray(giver, proposedGame.unmatchedGivers);
+                    this.removePlayerFromArray(receiver, proposedGame.unmatchedReceivers);
+                }
+            }
+            )
+            if (proposedGame.unmatchedReceivers.length < bestProposedGame.unmatchedReceivers.length) {
+                this.copyGameInformation(proposedGame, bestProposedGame)
+            }
+            i--;
+        }
+        this.copyGameInformation(bestProposedGame, this.gameInformation)
+    }
+
+    findRandomReceiver(player: Player, unmatchedReceivers: Player[]): Player | null {
+        let filteredReceivers = [...unmatchedReceivers]
+            .filter((receiver) => receiver.familyGroup !== player.familyGroup)
+        if (filteredReceivers.length > 0) {
+            const randomRecieverIndex = Math.floor(Math.random() * (filteredReceivers.length))
+            return filteredReceivers[randomRecieverIndex];
+        } else {
+            return null
+        }
+    }
+
+    removePlayerFromArray(player: Player, playerArray: Player[]): Player[] {
+        for (var i = 0; i < playerArray.length; i++) {
+            if (playerArray[i].name === player.name && playerArray[i].familyGroup === player.familyGroup) {
+                playerArray.splice(i, 1);
+                break;
+            }
+        }
+        return playerArray
+    }
+
+    copyGameInformation(originGame: GameInformation, destinationGame: GameInformation) {
+        destinationGame.matchedPairs = [...originGame.matchedPairs];
+        destinationGame.unmatchedGivers = [...originGame.unmatchedGivers];
+        destinationGame.unmatchedReceivers = [...originGame.unmatchedReceivers];
     }
 }
