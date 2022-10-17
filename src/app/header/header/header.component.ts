@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GameManagementService } from 'src/app/shared/game-management.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isGameGenerated = false;
+
+  constructor(private gameManagementService: GameManagementService) { }
 
   ngOnInit(): void {
+    this.gameManagementService.gameGeneratedChanged.subscribe((isGameGenerated) => {
+      this.isGameGenerated = isGameGenerated;
+    })
   }
 
 }

@@ -14,6 +14,9 @@ export class GameManagementService {
     gameInformationChanged = new Subject<GameInformation>();
     private gameInformation: GameInformation = new GameInformation();
 
+    private gameGenerated: boolean = false;
+    gameGeneratedChanged = new Subject<boolean>();
+
     constructor() {
         this.initialiseTestData();
     }
@@ -35,6 +38,10 @@ export class GameManagementService {
         return this.gameInformation;
     }
 
+    isGameGenerated(){
+        return this.gameGenerated;
+    }
+
     removePlayer(name: string, familyGroup: string) {
         let playersInFamily = this.initialPlayersMap.get(familyGroup);
         if (playersInFamily) {
@@ -51,7 +58,9 @@ export class GameManagementService {
     }
 
     generateGame() {
-        this.matchPlayers()
+        this.matchPlayers();
+        this.gameGenerated = true;
+        this.gameGeneratedChanged.next(this.gameGenerated);
         this.gameInformationChanged.next(this.gameInformation);
     }
 

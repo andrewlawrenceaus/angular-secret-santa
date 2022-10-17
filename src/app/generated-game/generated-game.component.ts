@@ -16,7 +16,6 @@ export class GeneratedGameComponent implements OnInit {
   constructor(private router: Router, private gameManagementService: GameManagementService) { }
 
   ngOnInit(): void {
-    this.gameManagementService.generateGame();
     this.subscription = this.gameManagementService.gameInformationChanged
       .subscribe(
         (gameInformation: GameInformation) => {
