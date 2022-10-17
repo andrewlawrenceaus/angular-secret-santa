@@ -1,12 +1,10 @@
-<div class="card mb-3" style="width: 18rem;">
+
+  <div class="card mb-3" style="width: 18rem;">
     <div class="card-header">
       {{familyGroup}}
     </div>
     <ul class="list-group list-group-flush">
-        <app-player-item 
-        *ngFor="let player of players" 
-        [player]="player"
-        (deletePlayer)="deletePlayer($event)">
-        </app-player-item>
+      <app-player-item *ngFor="let player of players" [player]="player" (deletePlayer)="deletePlayer($event)">
+      </app-player-item>
     </ul>
   </div>

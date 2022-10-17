@@ -44,6 +44,9 @@ export class GameManagementService {
                 this.initialPlayersMap.set(familyGroup, playersInFamily)
             }
         }
+        if (!playersInFamily || playersInFamily.length === 0){
+            this.initialPlayersMap.delete(familyGroup);
+        }
         this.initialPlayersMapChanged.next(this.initialPlayersMap);
     }
 

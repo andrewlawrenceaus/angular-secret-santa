@@ -10,7 +10,7 @@ import { GameManagementService } from 'src/app/shared/game-management.service';
 export class AddPlayerComponent implements OnInit {
   playerForm: FormGroup = new FormGroup('');
 
-  constructor(private currentPlayersService: GameManagementService) { }
+  constructor(private gameManagementService: GameManagementService) { }
 
   ngOnInit(): void {
     this.playerForm = new FormGroup({
@@ -21,7 +21,7 @@ export class AddPlayerComponent implements OnInit {
 
   onSubmit() {
     console.log(this.playerForm.value);
-    this.currentPlayersService
+    this.gameManagementService
       .addPlayer(this.playerForm.value.name, this.playerForm.value.familyGroup)
     this.playerForm.get('name')?.reset();  
   }
