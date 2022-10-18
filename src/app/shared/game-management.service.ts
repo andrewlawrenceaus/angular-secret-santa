@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Subject } from "rxjs";
+import { environment } from "src/environments/environment";
 import { GameInformation } from "./game-information.model";
 import { PlayerPair } from "./player-pair.model";
 import { Player } from "./player.model";
@@ -18,7 +19,9 @@ export class GameManagementService {
     gameGeneratedChanged = new Subject<boolean>();
 
     constructor() {
-        this.initialiseTestData();
+        if (!environment.production){
+            this.initialiseTestData();
+        }
     }
 
     addPlayer(name: string, familyGroup: string) {
@@ -66,9 +69,11 @@ export class GameManagementService {
 
     initialiseGameInformation() {
         this.gameInformation.matchedPairs = [];
+        this.gameInformation.unmatchedGivers = [];
+        this.gameInformation.unmatchedReceivers = [];
+
         var mapDesc = new Map([...this.initialPlayersMap].sort((a, b) =>
             b[1].length - a[1].length));
-
         mapDesc.forEach((value, familyKey) => {
             value.forEach((name) => {
                 this.gameInformation?.unmatchedGivers.push(new Player(name, familyKey))
